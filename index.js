@@ -1622,9 +1622,9 @@ function initializeModules(bot, mcData, defaultMove) {
   if (config.modules.beds) {
     bedModule(bot, mcData);
   }
-  
-  // تشغيل مود شات دائماً أو عند تفعيله
-  chatModule(bot);
+  if (config.modules.chat) {
+    chatModule(bot);
+  }
 
   addLog("[Modules] All modules initialized!");
 }
@@ -1851,11 +1851,13 @@ function bedModule(bot, mcData) {
 }
 
 // Chat module
+// FIX: wire up discord.events.chat flag
 function chatModule(bot) {
   bot.on("chat", (username, message) => {
     if (!bot || username === bot.username) return;
 
     try {
+      // FIX: send chat events to Discord if enabled
       if (
         config.discord &&
         config.discord.enabled &&
@@ -1865,28 +1867,22 @@ function chatModule(bot) {
         sendDiscordWebhook(`💬 **${username}**: ${message}`, 0x7289da);
       }
 
-      const lowerMsg = message.toLowerCase().trim();
-
-      // 1. إصلاح أمر Night Vision (يفحص الكلمة بالضبط وليس جزءاً منها)
-      if (lowerMsg === "ni" || lowerMsg === "nightbot") {
-        bot.chat("/effect give @a minecraft:night_vision infinite 0 true");
-        addLog(`[Chat Command] Executed night vision effect triggered by ${username}`);
-      }
-
-      // 2. إلغاء الاعتماد على config.chat ليجيب البوت دائماً عند إرسال التحية
-      if (lowerMsg.includes("hello") || lowerMsg.includes("hi")) {
-        bot.chat(`Hello, ${username}!`);
-      }
-
-      if (message.startsWith("!tp ")) {
-        const target = message.split("!tp ")[1];
-        if (target) bot.chat(`/tp ${target.trim()}`);
+      if (config.chat && config.chat.respond) {
+        const lowerMsg = message.toLowerCase();
+        if (lowerMsg.includes("hello") || lowerMsg.includes("hi")) {
+          bot.chat(`Hello, ${username}!`);
+        }
+        if (message.startsWith("!tp ")) {
+          const target = message.split(" ")[1];
+          if (target) bot.chat(`/tp ${target}`);
+        }
       }
     } catch (e) {
       addLog("[Chat] Error:", e.message);
     }
   });
 }
+
 // ============================================================
 // CONSOLE COMMANDS
 // ============================================================
@@ -2066,7 +2062,8 @@ process.on("SIGINT", () => {
   addLog("[System] SIGINT received — ignoring, bot will stay alive.");
 });
 
-// ============================================================
+// =============================
+//===============================
 // START THE BOT
 // ============================================================
 addLog("=".repeat(50));
