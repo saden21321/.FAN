@@ -1,7 +1,7 @@
 {
   "name": ".FAN",
   "bot-account": {
-    "username": ".FAN",
+    "username": "FAN",
     "password": "",
     "type": "offline"
   },
@@ -29,10 +29,10 @@
     "chat-messages": {
       "enabled": true,
       "repeat": true,
-      "repeat-delay": 120,
+      "repeat-delay": 320,
       "messages": [
-        "I'm a regular player",
-        "Subscribe to Slobos!",
+        "ويو",
+        "انا سمكة",
         "I like to play Minecraft!"
       ]
     },
@@ -78,7 +78,7 @@
     "events": {
       "connect": true,
       "disconnect": true,
-      "chat": false
+      "chat": true
     }
   },
   "chat": {
