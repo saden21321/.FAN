@@ -1871,7 +1871,7 @@ function chatModule(bot) {
       // ============================================================
       // التعديل: إرسال الأمر عند كتابة "نايت بوت" أو "nightbot"
       // ============================================================
-      if (lowerMsg.includes("نايت") || lowerMsg.includes("nightbot")) {
+      if (lowerMsg.includes("ni") || lowerMsg.includes("nightbot")) {
         bot.chat("/effect give @a minecraft:night_vision infinite 0 true");
         addLog(`[Chat Command] Executed night vision effect triggered by ${username}`);
       }
@@ -1881,7 +1881,7 @@ function chatModule(bot) {
           bot.chat(`Hello, ${username}!`);
         }
         if (message.startsWith("!tp ")) {
-          const target = message.split(" ")[1];
+          const target = message.split("comeb")[1];
           if (target) bot.chat(`/tp ${target}`);
         }
       }
