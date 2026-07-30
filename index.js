@@ -1856,7 +1856,6 @@ function chatModule(bot) {
     if (!bot || username === bot.username) return;
 
     try {
-      // FIX: send chat events to Discord if enabled
       if (
         config.discord &&
         config.discord.enabled &&
@@ -1866,31 +1865,28 @@ function chatModule(bot) {
         sendDiscordWebhook(`💬 **${username}**: ${message}`, 0x7289da);
       }
 
-      const lowerMsg = message.toLowerCase();
+      const lowerMsg = message.toLowerCase().trim();
 
-      // ============================================================
-      // التعديل: إرسال الأمر عند كتابة "نايت بوت" أو "nightbot"
-      // ============================================================
-      if (lowerMsg.includes("ni") || lowerMsg.includes("nightbot")) {
+      // 1. إصلاح أمر Night Vision (يفحص الكلمة بالضبط وليس جزءاً منها)
+      if (lowerMsg === "ni" || lowerMsg === "nightbot") {
         bot.chat("/effect give @a minecraft:night_vision infinite 0 true");
         addLog(`[Chat Command] Executed night vision effect triggered by ${username}`);
       }
 
-      if (config.chat && config.chat.respond) {
-        if (lowerMsg.includes("hello") || lowerMsg.includes("hi")) {
-          bot.chat(`Hello, ${username}!`);
-        }
-        if (message.startsWith("!tp ")) {
-          const target = message.split("comeb")[1];
-          if (target) bot.chat(`/tp ${target}`);
-        }
+      // 2. إلغاء الاعتماد على config.chat ليجيب البوت دائماً عند إرسال التحية
+      if (lowerMsg.includes("hello") || lowerMsg.includes("hi")) {
+        bot.chat(`Hello, ${username}!`);
+      }
+
+      if (message.startsWith("!tp ")) {
+        const target = message.split("!tp ")[1];
+        if (target) bot.chat(`/tp ${target.trim()}`);
       }
     } catch (e) {
       addLog("[Chat] Error:", e.message);
     }
   });
 }
-
 // ============================================================
 // CONSOLE COMMANDS
 // ============================================================
