@@ -83,7 +83,21 @@
       "chat": true
     }
   },
-  "chat": {
-    "respond": true
-  }
+
+"chat": {
+  "respond": true,
+  "responses": [
+    {
+      "trigger": "بوت",
+      "reply": "شو بدك! ماني عبد عندك تناديني"
+    },
+    {
+      "trigger": "هلا بوت",
+      "reply": "هلا بيك نورت السيرفر"
+    },
+        {
+      "trigger": "بوت نايت",
+      "reply": "/effect give @a minecraft:night_vision infinite 0 true"
+    }
+  ]
 }
