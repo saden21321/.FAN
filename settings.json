@@ -39,7 +39,7 @@
       ]
     },
     "chat-log": true,
-    "auto-reconnect": true,
+    "auto-reconnect": false,
     "auto-reconnect-delay": 2000,
     "max-reconnect-delay": 120000
   },
@@ -83,21 +83,21 @@
       "chat": true
     }
   },
-
-"chat": {
-  "respond": true,
-  "responses": [
-    {
-      "trigger": "بوت",
-      "reply": "شو بدك! ماني عبد عندك تناديني"
-    },
-    {
-      "trigger": "هلا بوت",
-      "reply": "هلا بيك نورت السيرفر"
-    },
-        {
-      "trigger": "بوت نايت",
-      "reply": "/effect give @a minecraft:night_vision infinite 0 true"
-    }
-  ]
+  "chat": {
+    "respond": true,
+    "responses": [
+      {
+        "trigger": "بوت",
+        "reply": "شو بدك! ماني عبد عندك تناديني"
+      },
+      {
+        "trigger": "هلا بوت",
+        "reply": "هلا بيك نورت السيرفر"
+      },
+      {
+        "trigger": "بوت نايت",
+        "reply": "/effect give @a minecraft:night_vision infinite 0 true"
+      }
+    ]
+  }
 }
