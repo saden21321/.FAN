@@ -6,7 +6,7 @@
     "type": "offline"
   },
   "server": {
-    "ip": "osoon-craft.aternos.me",
+    "ip": "soon-craft.aternos.me",
     "port": 51746,
     "version": "",
     "try-creative": false
